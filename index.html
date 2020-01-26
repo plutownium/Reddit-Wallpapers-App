@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Roland's Awesome Wallpapers</title>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		<!-- don't defer this axios script -->
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script src="./assets/scripts/wallpapers.js" defer></script>
+	</head>
+	<body>
+		<div><h1>Wallpapers</h1></div>
+		<div id="search-bar-div">
+			<input
+				id="search-bar"
+				type="text"
+				placeholder="Enter A Subreddit Here"
+			/>
+		</div>
+		<div id="list-of-wallpapers"></div>
+		<footer><p>Some images may be NSFW, use at your own risk!</p></footer>
+	</body>
+</html>
