@@ -150,7 +150,6 @@ function changeSubreddit(choice, selectedPage = 1) {
 				displayURL = res.data.data.children[i].data.url;
 				// setting up for "if (testCondition === 0)", which will avoid loading any non-image Reddit links
 				let testCondition = 0;
-				let skipCondition = false;
 				for (let i = 0; i < imageExtensions.length; i++) {
 					if (displayURL.includes(imageExtensions[i])) {
 						// we keep "testCondition" at 0 if and only if the displayURL does not include any imageExtensions
