@@ -14,6 +14,11 @@
 	margin: 30px 10px 0px 10px;
 }
 
+.disclaimer {
+	text-align: center;
+	font-weight: bold;
+}
+
 .flexbox-container {
 	border: 1px solid #fff;
 	width: 100%;
@@ -57,8 +62,9 @@
 }
 
 #button-container {
+	text-align: center;
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 }
 
 #next-button {

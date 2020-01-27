@@ -20,7 +20,7 @@
 				id="search-bar"
 				type="text"
 				placeholder="Enter A Subreddit Here"
-				onchange="changeSubreddit(event)"
+				onkeyup="changeSubreddit(event)"
 			/>
 		</div>
 		<div id="list-of-wallpapers"><p>Loading...</p></div>
@@ -28,7 +28,11 @@
 			<button id="next-button" onclick="nextPage()">Next</button>
 		</div>
 
-		<footer><p>Some images may be NSFW, use at your own risk!</p></footer>
+		<footer>
+			<p class="disclaimer">
+				Some images may be NSFW, use at your own risk!
+			</p>
+		</footer>
 	</body>
 </html>
 <!-- onchange="event => changeSubreddit(event)" -->

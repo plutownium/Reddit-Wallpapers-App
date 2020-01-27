@@ -62,11 +62,6 @@ let startURL =
 	resultsPerPage +
 	afterConst;
 
-const startURL2 = "https://www.reddit.com/r/wallpaper/hot.json?count=25";
-
-const startURL3 =
-	"https://www.reddit.com/r/wallpaper/hot.json?count=25&after=t3_ettxi4";
-
 let displayURL; // as in data.data.children[i].data.url
 let title; // thread title
 let resolution;
@@ -81,41 +76,6 @@ const mainDiv = document.getElementById("list-of-wallpapers");
 
 // default loader
 changeSubreddit(startURL);
-
-// axios
-// 	.get(startURL3)
-// 	.then(res => {
-// 		after = res.data.data.after;
-// 		console.log("after:", after);
-// 		let html = [`<div class="flexbox-container">`];
-// 		for (let i = 0; i < resultsPerPage; i++) {
-// 			displayURL = res.data.data.children[i].data.url;
-// 			title = res.data.data.children[i].data.title;
-// 			// get the image resolution
-// 			resolution =
-// 				res.data.data.children[i].data.preview.images[0].source.width +
-// 				"x" +
-// 				res.data.data.children[i].data.preview.images[0].source.height;
-// 			subreddit = res.data.data.children[i].data.subreddit;
-// 			let wallpaper = `
-// 	        <div class="card">
-// 	            <img class="thumbnail" src=${displayURL} alt="Image not loaded yet" />
-// 				<br/>
-// 				<div class="card-container">
-// 	            	<a href=${displayURL}>${title}</a>
-// 	            	<p>Resolution: ${resolution}</p>
-// 					<p>Posted on: ${subreddit}</p>
-// 				</div>
-// 	        </div>
-// 	    `;
-// 			html.push(wallpaper);
-// 		}
-// 		html.push(`</div>`);
-// 		mainDiv.innerHTML = html.join("");
-// 	})
-// 	.catch(err => {
-// 		console.log("Error in changeSubreddit():", err);
-// 	});
 
 // render the Subreddit Choices links
 let subParentDiv = document.getElementById("subreddit-selector");
@@ -144,7 +104,6 @@ function changeSubreddit(choice, selectedPage = 1) {
 	// accepts 1 arg, the name of a subreddit.
 	// TODO: make changeSubreddit() accept a 2nd arg, sortingOption.
 
-	// TODO: b) Do some kinda error handling (An Alert, maybe)
 	mainDiv.innerHTML = `<p>Loading...</p>`;
 	// without these lines & func call, when changing Subreddits while after page1, buttons and page do not reset to "page1 && next"
 	let incomingSubreddit = storeCurrentSubreddit(choice);
@@ -153,11 +112,9 @@ function changeSubreddit(choice, selectedPage = 1) {
 	}
 
 	let newSubreddit = "";
-	// console.log("choice:", choice);
 	if (typeof choice === "string") {
 		if (choice.substring(0, 2) === "r/") {
 			// This if block is for the case where changeSubreddit() is being used by the Change Subreddit Buttons.
-			console.log(choice.substring(2));
 			newSubreddit =
 				"https://www.reddit.com/r/" +
 				choice.substring(2) +
@@ -186,7 +143,6 @@ function changeSubreddit(choice, selectedPage = 1) {
 			// store the after data so it can be combined into a URL later
 			after = res.data.data.after;
 			before = res.data.data.before;
-			console.log("after:", after);
 			// store current Subreddit so it can be combined into a URL later
 			currentSubreddit = storeCurrentSubreddit(newSubreddit); // accepts the URL as an argument and parses the input
 			let html = [`<div class="flexbox-container">`];
@@ -294,13 +250,17 @@ function prevPage() {
 }
 
 function storeCurrentSubreddit(subredditURL) {
-	// remove the domain;
+	// if (subredditURL.target) {
+	// 	// do something, probably return a value here
+	// 	console.log("EVENT:", subredditURL);
+	// } else {
+	// step 1: remove the domain;
 	let removedDomain = subredditURL.substring(25);
-	// get the index of the slash following the subreddits list;
+	// step 2: get the index of the slash following the subreddits list;
 	const indexOfSubredditsEnd = removedDomain.indexOf("/");
-	// remove the stuff following the slash.
+	// step 3: remove the stuff following the slash.
 	let justSubreddits = removedDomain.substring(0, indexOfSubredditsEnd);
-	// console.log("JUST:", justSubreddits);
+
 	return justSubreddits;
 }
 
@@ -322,11 +282,9 @@ function highlight(number) {
 }
 
 // GOAL: a website that looks like https://droidheat.com/r-wallpapers/ ("like", not "the same as")
-// TODO: Show "Loading..." on pageload
-
-// TODO: CENTER THE DAMN NEXT AND PREV PAGE BUTTONS
 
 // ********************************************************************************************
+// unused (but good) code
 // ********************************************************************************************
 
 // Create the JS for making and unmaking a dropdown box
