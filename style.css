@@ -42,15 +42,36 @@
 	background-color: rgb(143, 225, 255);
 }
 
+.sorting-selection {
+	margin: 10px;
+	padding: 5px;
+	border: 3px solid black;
+	border-radius: 5px;
+	background-color: rgb(143, 225, 255);
+}
+
+.sorting-selection:hover {
+	margin: 10px;
+	padding: 5px;
+	border: 3px solid black;
+	border-radius: 5px;
+	background-color: rgb(36, 183, 236);
+}
+
 .selected {
 	background-color: rgb(143, 154, 255);
+	border: 3px dotted black;
+}
+
+.sortSelected {
+	background-color: rgb(201, 143, 255);
 	border: 3px dotted black;
 }
 
 .subreddit-selection:hover {
 	margin: 10px;
 	padding: 5px;
-	border: 2px solid black;
+	border: 3px solid black;
 	border-radius: 5px;
 	background-color: rgb(36, 183, 236);
 }
@@ -121,6 +142,14 @@ h3 {
 /* https://www.w3schools.com/howto/howto_js_dropdown.asp */
 /* https://www.youtube.com/watch?v=rgUp302f_lY */
 .show {
+}
+
+#sorting-selector {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	border: 1px dashed black;
+	margin: 5px 0px 2px 0px;
 }
 
 #subreddit-selector {
