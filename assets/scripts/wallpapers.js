@@ -72,6 +72,8 @@ let before; // aka "Prev Page"
 
 let currentSubreddit = "";
 
+let sortingStyle = "hot";
+
 const mainDiv = document.getElementById("list-of-wallpapers");
 
 // default loader
@@ -103,6 +105,17 @@ function changeSubreddit(choice, selectedPage = 1) {
 	// changes the wallpapers to images from the subreddit of the user's choice
 	// accepts 1 arg, the name of a subreddit.
 	// TODO: make changeSubreddit() accept a 2nd arg, sortingOption.
+
+	// check if onKeyUp is an alphanumeric character before making the axios call
+	if (choice.target) {
+		if (
+			(event.keyCode >= 48 && event.keyCode <= 57) ||
+			(event.keyCode >= 65 && event.keyCode <= 90)
+		) {
+		} else {
+			return null;
+		}
+	}
 
 	mainDiv.innerHTML = `<p>Loading...</p>`;
 	// without these lines & func call, when changing Subreddits while after page1, buttons and page do not reset to "page1 && next"
@@ -137,6 +150,7 @@ function changeSubreddit(choice, selectedPage = 1) {
 			jsonify +
 			resultsPerPage;
 	}
+
 	axios
 		.get(newSubreddit)
 		.then(res => {
@@ -249,16 +263,17 @@ function prevPage() {
 }
 
 function storeCurrentSubreddit(subredditURL) {
-	// if (subredditURL.target) {
-	// 	// do something, probably return a value here
-	// 	console.log("EVENT:", subredditURL);
-	// } else {
 	// step 1: remove the domain;
-	let removedDomain = subredditURL.substring(25);
-	// step 2: get the index of the slash following the subreddits list;
-	const indexOfSubredditsEnd = removedDomain.indexOf("/");
-	// step 3: remove the stuff following the slash.
-	let justSubreddits = removedDomain.substring(0, indexOfSubredditsEnd);
+	let justSubreddits;
+	if (subredditURL.target) {
+		justSubreddits = subredditURL.target.value;
+	} else {
+		let removedDomain = subredditURL.substring(25);
+		// step 2: get the index of the slash following the subreddits list;
+		const indexOfSubredditsEnd = removedDomain.indexOf("/");
+		// step 3: remove the stuff following the slash.
+		justSubreddits = removedDomain.substring(0, indexOfSubredditsEnd);
+	}
 
 	return justSubreddits;
 }
@@ -280,10 +295,8 @@ function highlight(number) {
 	subButtons[number].classList.add("selected");
 }
 
-// GOAL: a website that looks like https://droidheat.com/r-wallpapers/ ("like", not "the same as")
-
 // ********************************************************************************************
-// unused (but good) code
+// code storage
 // ********************************************************************************************
 
 // Create the JS for making and unmaking a dropdown box
