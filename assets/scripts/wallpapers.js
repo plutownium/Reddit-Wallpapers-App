@@ -48,6 +48,7 @@ const subreddits = [
 const sortingOptions = ["hot", "new", "top", "controversial", "rising"];
 const jsonify = ".json?count=";
 const afterConst = "&after=";
+const beforeConst = "&before=";
 const resultsPerPage = 25;
 
 const imageExtensions = [".jpg", "jpeg", ".png", ".gif", "gify", "gifv"];
@@ -72,6 +73,7 @@ let resolution;
 let subreddit; // name of the subreddit where the img was posted
 let page = 1; //
 let after; // aka "Next Page"
+let before; // aka "Prev Page"
 
 let currentSubreddit = "";
 
@@ -133,6 +135,8 @@ for (let i = 0; i < subButtons.length; i++) {
 		"click",
 		changeSubreddit.bind(null, subButtons[i].innerHTML)
 	);
+	// bind the ith value so highlight() can pick which value to highlight later
+	subButtons[i].addEventListener("click", highlight.bind(null, i));
 }
 
 function changeSubreddit(choice, selectedPage = 1) {
@@ -141,6 +145,12 @@ function changeSubreddit(choice, selectedPage = 1) {
 	// TODO: make changeSubreddit() accept a 2nd arg, sortingOption.
 
 	// TODO: b) Do some kinda error handling (An Alert, maybe)
+	mainDiv.innerHTML = `<p>Loading...</p>`;
+	// without these lines & func call, when changing Subreddits while after page1, buttons and page do not reset to "page1 && next"
+	let incomingSubreddit = storeCurrentSubreddit(choice);
+	if (incomingSubreddit !== currentSubreddit) {
+		resetButtons();
+	}
 
 	let newSubreddit = "";
 	// console.log("choice:", choice);
@@ -175,6 +185,7 @@ function changeSubreddit(choice, selectedPage = 1) {
 		.then(res => {
 			// store the after data so it can be combined into a URL later
 			after = res.data.data.after;
+			before = res.data.data.before;
 			console.log("after:", after);
 			// store current Subreddit so it can be combined into a URL later
 			currentSubreddit = storeCurrentSubreddit(newSubreddit); // accepts the URL as an argument and parses the input
@@ -246,16 +257,40 @@ function nextPage(currentPage, nextPage) {
 
 	const buttonContainer = document.getElementById("button-container");
 	buttonContainer.innerHTML = `
-	<button id="next-button" onclick="nextPage()">Next</button>
+	<button id="prev-button" onclick="prevPage()">Previous</button>
 	<p>Page ${page}</p>
+	<button id="next-button" onclick="nextPage()">Next</button>
 	`;
-
-	// TODO: display a "Previous" button by adding one using .innerHTML of `id="button-container"`
-	// TODO:
 }
 
 function prevPage() {
 	page = page - 1;
+	newSubreddit =
+		"https://www.reddit.com/r/" +
+		currentSubreddit + // from global variables
+		"/" +
+		sortingOptions[0] +
+		jsonify +
+		resultsPerPage +
+		beforeConst +
+		before; // from global variables
+
+	changeSubreddit(newSubreddit);
+
+	const buttonContainer = document.getElementById("button-container");
+	if (page === 1) {
+		buttonContainer.innerHTML = `
+		<button id="next-button" onclick="nextPage()">Next</button>
+	`;
+	} else if (page > 1) {
+		buttonContainer.innerHTML = `
+		<button id="prev-button" onclick="prevPage()">Previous</button>
+		<p>Page ${page}</p>
+		<button id="next-button" onclick="nextPage()">Next</button>
+	`;
+	} else {
+		console.log("You shouldn't be able to get here you know.", page);
+	}
 }
 
 function storeCurrentSubreddit(subredditURL) {
@@ -265,15 +300,29 @@ function storeCurrentSubreddit(subredditURL) {
 	const indexOfSubredditsEnd = removedDomain.indexOf("/");
 	// remove the stuff following the slash.
 	let justSubreddits = removedDomain.substring(0, indexOfSubredditsEnd);
-	console.log("JUST:", justSubreddits);
+	// console.log("JUST:", justSubreddits);
 	return justSubreddits;
+}
+
+function resetButtons() {
+	page = 1;
+	const buttonContainer = document.getElementById("button-container");
+	buttonContainer.innerHTML = `
+	<button id="next-button" onclick="nextPage()">Next</button>
+	`;
+}
+
+function highlight(number) {
+	for (let i = 0; i < subButtons.length; i++) {
+		if (subButtons[i].classList.contains("selected")) {
+			subButtons[i].classList.remove("selected");
+		}
+	}
+	subButtons[number].classList.add("selected");
 }
 
 // GOAL: a website that looks like https://droidheat.com/r-wallpapers/ ("like", not "the same as")
 // TODO: Show "Loading..." on pageload
-// TODO: Make the app have PAGES where page2=json results pg 2
-
-// TODO: Add error handling for 404 image links (maybe render a cat instead)
 
 // TODO: CENTER THE DAMN NEXT AND PREV PAGE BUTTONS
 

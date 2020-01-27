@@ -9,7 +9,6 @@
 		<!-- don't defer this axios script -->
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script src="./assets/scripts/wallpapers.js" defer></script>
-
 	</head>
 	<body>
 		<div><h1>Wallpapers</h1></div>
@@ -24,9 +23,11 @@
 				onchange="changeSubreddit(event)"
 			/>
 		</div>
-		<div id="list-of-wallpapers"></div>
-		<div id="button-container"></div id="next-container">
-		<button id="next-button" onclick="nextPage()">Next</button>
+		<div id="list-of-wallpapers"><p>Loading...</p></div>
+		<div id="button-container">
+			<button id="next-button" onclick="nextPage()">Next</button>
+		</div>
+
 		<footer><p>Some images may be NSFW, use at your own risk!</p></footer>
 	</body>
 </html>

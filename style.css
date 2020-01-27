@@ -37,6 +37,11 @@
 	background-color: rgb(143, 225, 255);
 }
 
+.selected {
+	background-color: rgb(143, 154, 255);
+	border: 3px dotted black;
+}
+
 .subreddit-selection:hover {
 	margin: 10px;
 	padding: 5px;
@@ -57,6 +62,14 @@
 }
 
 #next-button {
+	border-radius: 5px;
+	border: 2px solid black;
+	margin: 10px;
+	padding: 10px;
+	text-align: center;
+}
+
+#prev-button {
 	border-radius: 5px;
 	border: 2px solid black;
 	margin: 10px;
