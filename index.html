@@ -9,17 +9,25 @@
 		<!-- don't defer this axios script -->
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script src="./assets/scripts/wallpapers.js" defer></script>
+
 	</head>
 	<body>
 		<div><h1>Wallpapers</h1></div>
+		<h3>...Or Pick A Subreddit:</h3>
+		<div id="subreddit-selector"></div>
 		<div id="search-bar-div">
+			<p id="r">r/</p>
 			<input
 				id="search-bar"
 				type="text"
 				placeholder="Enter A Subreddit Here"
+				onchange="changeSubreddit(event)"
 			/>
 		</div>
 		<div id="list-of-wallpapers"></div>
+		<div id="button-container"></div id="next-container">
+		<button id="next-button" onclick="nextPage()">Next</button>
 		<footer><p>Some images may be NSFW, use at your own risk!</p></footer>
 	</body>
 </html>
+<!-- onchange="event => changeSubreddit(event)" -->

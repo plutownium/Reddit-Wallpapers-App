@@ -3,14 +3,23 @@
 	height: 400px;
 	border: 1px solid black;
 	margin: 10px;
+	background-color: #ffffff;
+}
+
+.card:hover {
+	background-color: rgb(199, 234, 246);
+}
+
+.card-container {
+	margin: 30px 10px 0px 10px;
 }
 
 .flexbox-container {
 	border: 1px solid #fff;
-	width: 1200px;
+	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: center;
+	justify-content: space-around;
 }
 
 .thumbnail {
@@ -20,8 +29,95 @@
 	max-height: 200px;
 }
 
+.subreddit-selection {
+	margin: 10px;
+	padding: 5px;
+	border: 2px solid black;
+	border-radius: 5px;
+	background-color: rgb(143, 225, 255);
+}
+
+.subreddit-selection:hover {
+	margin: 10px;
+	padding: 5px;
+	border: 2px solid black;
+	border-radius: 5px;
+	background-color: rgb(36, 183, 236);
+}
+
 #list-of-wallpapers {
 	display: flex;
 	justify-content: center;
 	text-align: center;
+}
+
+#button-container {
+	display: flex;
+	justify-content: space-between;
+}
+
+#next-button {
+	border-radius: 5px;
+	border: 2px solid black;
+	margin: 10px;
+	padding: 10px;
+	text-align: center;
+}
+
+#r {
+	padding: 10px;
+	background-color: #eee;
+}
+
+#search-bar-div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+body {
+	background-color: rgb(227, 244, 250);
+}
+
+input[type="text"] {
+	padding: 10px;
+	border: 2px solid #ccc;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	height: 20px;
+}
+
+input[type="text"]:focus {
+	border-color: #333;
+}
+
+h1 {
+	text-align: center;
+}
+
+h3 {
+	text-align: center;
+}
+
+/* https://www.w3schools.com/howto/howto_js_dropdown.asp */
+/* https://www.youtube.com/watch?v=rgUp302f_lY */
+.show {
+}
+
+#subreddit-selector {
+	/* position: relative;
+	display: inline-block; */
+	display: flex;
+	flex-wrap: wrap;
+	border: 1px dashed black;
+}
+
+.dropdown {
+	/* position: absolute; */
+	z-index: 1;
+}
+
+.dropdown p {
+	padding: 2px 2px;
+	display: inline-block;
 }
